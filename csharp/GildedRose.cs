@@ -4,20 +4,18 @@ namespace csharp
 {
     public class GildedRose
     {
-        IList<Item> Items;
-        public GildedRose(IList<Item> Items)
+        readonly IList<Item> _items;
+        public GildedRose(IList<Item> items)
         {
-            this.Items = Items;
+            this._items = items;
         }
-
-
         private static bool NameChecker(string name)
         {
             return (name != "Aged Brie" && name != "Backstage passes to a TAFKAL80ETC concert");
         }
         public void UpdateQuality()
         {
-            foreach (var t in Items)
+            foreach (var t in _items)
             {
                 if (NameChecker(t.Name))
                 {
