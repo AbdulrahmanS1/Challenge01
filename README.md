@@ -15,10 +15,14 @@
 - README file contains:
 
 Code Smell:
+it had along method
+and smelly cody with many if's
 
 Definition: 
+The defintion is not clear, but if it means the def of code smell =>> it means that the code have many lines of stuff that are not needed(Comments/Long methods)
 
 Solution:
+Replacing some the if to function, to reduce the number of if's and reduce the method
 
 
 > p.s. your refactored function have to work just like how the old `UpdateQuality()` function was working
