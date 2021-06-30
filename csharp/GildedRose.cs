@@ -10,78 +10,58 @@ namespace csharp
             this.Items = Items;
         }
 
+
+        private static bool NameChecker(string name)
+        {
+            return (name != "Aged Brie" && name != "Backstage passes to a TAFKAL80ETC concert");
+        }
         public void UpdateQuality()
         {
-            for (var i = 0; i < Items.Count; i++)
+            foreach (var t in Items)
             {
-                if (Items[i].Name != "Aged Brie" && Items[i].Name != "Backstage passes to a TAFKAL80ETC concert")
+                if (NameChecker(t.Name))
                 {
-                    if (Items[i].Quality > 0)
+                    if (t.Quality > 0)
                     {
-                        if (Items[i].Name != "Sulfuras, Hand of Ragnaros")
+                        if (t.Name != "Sulfuras, Hand of Ragnaros")
                         {
-                            Items[i].Quality = Items[i].Quality - 1;
+                            t.Quality -= 1;
                         }
                     }
                 }
                 else
                 {
-                    if (Items[i].Quality < 50)
+                    if (t.Quality < 50)
                     {
-                        Items[i].Quality = Items[i].Quality + 1;
+                        t.Quality += 1;
 
-                        if (Items[i].Name == "Backstage passes to a TAFKAL80ETC concert")
+                        if (t.Name == "Backstage passes to a TAFKAL80ETC concert" && (t.SellIn < 11) )
                         {
-                            if (Items[i].SellIn < 11)
-                            {
-                                if (Items[i].Quality < 50)
-                                {
-                                    Items[i].Quality = Items[i].Quality + 1;
-                                }
-                            }
-
-                            if (Items[i].SellIn < 6)
-                            {
-                                if (Items[i].Quality < 50)
-                                {
-                                    Items[i].Quality = Items[i].Quality + 1;
-                                }
-                            }
+                            t.Quality += 1;
                         }
                     }
                 }
 
-                if (Items[i].Name != "Sulfuras, Hand of Ragnaros")
+                if (t.Name != "Sulfuras, Hand of Ragnaros")
                 {
-                    Items[i].SellIn = Items[i].SellIn - 1;
+                    t.SellIn -= 1;
                 }
 
-                if (Items[i].SellIn < 0)
+                if (t.SellIn >= 0) continue;
+                if (t.Name != "Aged Brie")
                 {
-                    if (Items[i].Name != "Aged Brie")
-                    {
-                        if (Items[i].Name != "Backstage passes to a TAFKAL80ETC concert")
-                        {
-                            if (Items[i].Quality > 0)
-                            {
-                                if (Items[i].Name != "Sulfuras, Hand of Ragnaros")
-                                {
-                                    Items[i].Quality = Items[i].Quality - 1;
-                                }
-                            }
-                        }
-                        else
-                        {
-                            Items[i].Quality = Items[i].Quality - Items[i].Quality;
-                        }
+                    if (t.Name != "Backstage passes to a TAFKAL80ETC concert" && t.Quality > 0 && t.Name != "Sulfuras, Hand of Ragnaros")
+                    {  
+                        t.Quality -= 1;
                     }
                     else
                     {
-                        if (Items[i].Quality < 50)
-                        {
-                            Items[i].Quality = Items[i].Quality + 1;
-                        }
+                        t.Quality =0;
                     }
+                }
+                else if (t.Quality < 50)
+                {
+                    t.Quality += 1;
                 }
             }
         }
